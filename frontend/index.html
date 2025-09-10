@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard Sản lượng</title>
+  <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <h2>Chế độ xem</h2>
+      <div class="side-buttons">
+        <button class="side-btn active" data-period="day">Theo ngày</button>
+        <button class="side-btn" data-period="week">Theo tuần</button>
+        <button class="side-btn" data-period="month">Theo tháng</button>
+        <button class="side-btn" data-period="year">Theo năm</button>
+      </div>
+
+      <hr>
+
+      <div class="controls-block">
+        <h3>Chọn phạm vi</h3>
+
+        <div class="control-row" id="control-day">
+          <label>Ngày</label>
+          <div class="input-row">
+            <input id="dayInput" type="date" />
+            <button class="btn" id="btnOpenCalendar">📅</button>
+            <button class="btn" id="btnLoadDay">Tải</button>
+          </div>
+        </div>
+
+     <div class="control-row" id="control-week">
+  <label>Tuần</label>
+  <div class="input-row">
+    <select id="weekYear"></select>
+    <select id="weekMonth"></select>
+    <select id="weekIndex"></select>
+  </div>
+  <button class="btn" id="btnLoadWeek">Tải</button>
+</div>
+
+        <div class="control-row" id="control-month" style="display:none">
+          <label>Tháng</label>
+          <div class="input-row">
+            <select id="monthYear"></select>
+            <select id="monthSelect"></select>
+            <button class="btn" id="btnLoadMonth">Tải</button>
+          </div>
+        </div>
+
+        <div class="control-row" id="control-year" style="display:none">
+          <label>Năm</label>
+          <div class="input-row">
+            <select id="yearSelect"></select>
+            <button class="btn" id="btnLoadYear">Tải</button>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="controls-block">
+        <h3>Thiết bị</h3>
+        <div class="input-row">
+          <input id="deviceName" placeholder="Tên thiết bị (VD: M1)" />
+          <button class="btn" id="btnAddDevice">Thêm</button>
+        </div>
+      </div>
+
+      <div class="note">
+        <small>Ghi chú: chọn thiết bị để lọc dữ liệu (All = tất cả thiết bị)</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <h1>Dashboard Sản lượng</h1>
+        <div class="labels">
+          <span id="dayLabel"></span>
+          <span id="weekLabel"></span>
+          <span id="monthLabel"></span>
+          <span id="yearLabel"></span>
+        </div>
+      </header>
+
+      <section class="grid">
+        <div class="charts">
+          <div class="card" id="card-day">
+            <h3>Bảng giám sát sản lượng theo ngày (Pass / Fail)</h3>
+            <div class="chart-wrapper"><canvas id="chartDay"></canvas></div>
+          </div>
+          <div id="dayLogPanel" class="card day-log">
+            <h3>Log chi tiết theo giờ</h3>
+            <div id="logSummary" style="font-size:13px;color:#98aebe;margin-bottom:8px"></div>
+            <div style="max-height:240px;overflow:auto"><table id="logTable" style="width:100%;border-collapse:collapse"></table></div>
+          </div>
+
+          <div class="card" id="card-week" style="display:none">
+            <h3>Chi tiết Tuần</h3>
+            <div class="chart-wrapper"><canvas id="chartWeek"></canvas></div>
+          </div>
+
+          <div class="card" id="card-month" style="display:none">
+            <h3>Chi tiết Tháng (Theo tuần)</h3>
+            <div class="chart-wrapper"><canvas id="chartMonth"></canvas></div>
+          </div>
+
+          <div class="card" id="card-year" style="display:none">
+            <h3>Chi tiết Năm (Theo tháng)</h3>
+            <div class="chart-wrapper"><canvas id="chartYear"></canvas></div>
+          </div>
+        </div>
+
+        <aside class="devices-card">
+          <h3>Danh sách thiết bị</h3>
+          <div id="devicesList" class="devices-list"></div>
+          <div id="calendarPopup" class="calendar-popup" style="display:none;"></div>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <!-- scripts: ensure Chart.js loads first, then plugin, then our main -->
+  <script src="/static/chart.js"></script>
+  <script src="/static/chartjs-plugin-datalabels.min.js"></script>
+  <script src="/static/main.js"></script>
+</body>
+</html>
